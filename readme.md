@@ -67,11 +67,13 @@ HTML5 __Canvas__, __¿DOM?__ and Vanilla __Javascript__
 ## BACK LOG
 
 ### Delivery Chart
+
 * Shows:
+
   * The game phase
-  * Number of exercises to deliver
-  * Failed deliveries allowed
-  * My failed deliveries
+  * Number of exercises to deliver
+  * Failed deliveries allowed
+  * My failed deliveries
 
 ### Music
 * Add background music to game
