@@ -152,4 +152,6 @@ throwItem();
 
 ## Links
 
-// [Github](https://github.com/'mi direccion cuando lo suba')
+[Iron flip run Trello](https://trello.com/b/ykEf98Bd/project-module-1)
+
+[Github](https://github.com/duducarmona/game-module-1)
