@@ -37,8 +37,20 @@ class ItemsFalling {
 
         for (let i = 0; i < this.arrayItems.length; i++) {
             this.arrayItems[i]._newPos();
-            // Si el item se sale del canvas o es cogido tengo que sacarlo del array.
             this.ctx.fillRect(this.arrayItems[i].x, this.arrayItems[i].y, this.arrayItems[i].width, this.arrayItems[i].height);
         }
+    }
+
+    collidesWithGround() {
+        return this.arrayItems.some((element) => {
+            if (element.y + element.height === this.gameHeight) {
+                this.arrayItems.shift();
+
+                return true;
+            }
+            else {
+                return false;
+            }
+        })
     }
 }

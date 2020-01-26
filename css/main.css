@@ -8,3 +8,9 @@ canvas {
     margin: 0 auto;
     border: 1px solid black;
 }
+
+#puntuacion {
+    width: 200px;
+    background-color: tomato;
+    float: right;
+}
