@@ -49,7 +49,7 @@ class Game {
         }
 
         if (generate) {
-            const itemFalling = new ItemsFalling(ctx);
+            const itemFalling = new ItemsFalling(this.ctx, this.width, this.height);
             const x = Math.floor(Math.random() * this.width - itemFalling.width);
             const direction = Math.floor(Math.random() * 2);
             

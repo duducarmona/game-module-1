@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         width: canvas.width,
         height: canvas.height,
         ironhacker: new Ironhacker(ctx, canvas.width, canvas.height),
-        itemsFalling: new ItemsFalling(ctx)
+        itemsFalling: new ItemsFalling(ctx, canvas.width, canvas.height)
     });
 
     function start() {
