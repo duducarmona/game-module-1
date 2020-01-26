@@ -3,7 +3,7 @@ class Ironhacker {
         this.ctx = ctx;
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
-        this.ctx.fillStyle = 'blue';
+        // this.ctx.fillStyle = 'blue';
         this.width = 30;
         this.height = 30;
         this.x = (this.gameWidth - this.width) / 2;
@@ -26,7 +26,8 @@ class Ironhacker {
 
     update() {
         this._newPos();
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        this.ctx.fillStyle = 'blue';
+        this.ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 
     moveLeft() {

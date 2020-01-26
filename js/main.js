@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         ctx,
         width: canvas.width,
         height: canvas.height,
-        ironhacker: new Ironhacker(ctx, canvas.width, canvas.height)
+        ironhacker: new Ironhacker(ctx, canvas.width, canvas.height),
+        itemsFalling: new ItemsFalling(ctx)
     });
 
     function start() {
