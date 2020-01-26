@@ -6,6 +6,10 @@ class Game {
         this.width = options.width;
         this.height = options.height;
         this.itemsFalling = options.itemsFalling;
+        this.submittedItems = 0;
+        this.HTMLSubmittedItems = document.getElementById('submitted-items');
+        this.submittedFails = 0;
+        this.HTMLSubmittedFails = document.getElementById('submitted-fails');
     }
 
     _assignControlsToKeys() {
@@ -57,9 +61,6 @@ class Game {
 
     _collidesWithIronhacker() {
         return this.itemsFalling.arrayItems.some((element) => {
-            this.elementX = element.x;
-            this.elementHeight = element.height;
-
             if (
                 element.y + element.height >= this.height - this.ironhacker.height &&   // Item at the height of the player.
                 (
@@ -83,6 +84,14 @@ class Game {
         })
     }
 
+    _updateSubmittedItems() {
+        this.HTMLSubmittedItems.innerText = this.submittedItems;
+    }
+
+    _updateSubmittedFails() {
+        this.HTMLSubmittedFails.innerText = this.submittedFails;
+    }
+
     _update() {
         this._cleanScreen();
         this.ironhacker.update();
@@ -90,11 +99,14 @@ class Game {
         this.itemsFalling.update();
 
         if (this.itemsFalling.collidesWithGround()) {
-            // Show warning and modify score.
+            // Show warning.
+            this.submittedFails++;
+            this._updateSubmittedFails();
         }
 
         if (this._collidesWithIronhacker()) {
-            // Modify score.
+            this.submittedItems++;
+            this._updateSubmittedItems();
         }
 
         if (!!this.interval) {
