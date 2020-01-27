@@ -10,6 +10,10 @@ class Game {
         this.HTMLSubmittedItems = document.getElementById('submitted-items');
         this.submittedFails = 0;
         this.HTMLSubmittedFails = document.getElementById('submitted-fails');
+        this.HTMLMaxFails = document.getElementById('max-fails');
+        this.HTMLItemsToComplete = document.getElementById('items-to-complete');
+        this.HTMLLevel = document.getElementById('level');
+        this.level = 1;
     }
 
     _assignControlsToKeys() {
@@ -92,6 +96,30 @@ class Game {
         this.HTMLSubmittedFails.innerText = this.submittedFails;
     }
 
+    _updateLevel() {
+        this.HTMLLevel.innerText = ++this.level;
+    }
+
+    _updateItemsToComplete() {
+        this.HTMLItemsToComplete.innerText = parseInt(this.HTMLItemsToComplete.innerText) + 5;
+    }
+
+    _updateMaxFails() {
+        this.HTMLMaxFails.innerText = parseInt(this.HTMLItemsToComplete.innerText) * 0.2;
+    }
+
+    _goToNextLevel() {
+        this._updateLevel();
+        // this._updateItemsToComplete();
+        // this._updateMaxFails();
+        this.submittedItems = 0;
+        this._updateSubmittedItems();
+        this.submittedFails = 0;
+        this._updateSubmittedFails();
+        this.itemsFalling.frequency *= 0.3;
+        // this.itemsFalling.speed += 500;
+    }
+
     _update() {
         this._cleanScreen();
         this.ironhacker.update();
@@ -102,11 +130,22 @@ class Game {
             // Show warning.
             this.submittedFails++;
             this._updateSubmittedFails();
+
+            if (this.submittedFails == this.HTMLMaxFails.innerText) {
+                alert('GAME OVER');
+                this._stop();
+                document.location.reload();
+            } 
         }
 
         if (this._collidesWithIronhacker()) {
             this.submittedItems++;
             this._updateSubmittedItems();
+
+            if (this.submittedItems == this.HTMLItemsToComplete.innerText) {
+                alert('Congratulations! You survived another day at Ironhack!');
+                this._goToNextLevel();
+            }
         }
 
         if (!!this.interval) {
@@ -117,5 +156,12 @@ class Game {
     start() {
         this._assignControlsToKeys();
         this.interval = window.requestAnimationFrame(this._update.bind(this));
+    }
+
+    _stop() {
+        if (this.interval) {
+            clearInterval(this.interval);
+            this.interval = undefined;
+        }
     }
 }

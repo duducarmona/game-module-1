@@ -9,7 +9,7 @@ class Ironhacker {
         this.y = (this.gameHeight - this.height);
         this.speedX = 0;
         this.speedY = 0;
-        this.speed = 5;
+        this.speed = 10;
     }
 
     _newPos() {
