@@ -1,16 +1,18 @@
 class ItemsFalling {
-    constructor(ctx, gameWidth, gameHeight) {
-        this.width = 20;
-        this.height = 30;
+    constructor(ctx, gameWidth, gameHeight, speed) {
+        // this.width = 20;
+        // this.height = 30;
+        this.width = 50;
+        this.height = 60;
         this.x = 0;
         this.y = 0;
-        this.arrayItems = [];
+        // this.arrayItems = [];
         this.ctx = ctx;
         this.frequency = 100;
         this.direction = 0;     // Right = 0, Left = 1
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
-        this.speed = 1;
+        this.speed = speed;
     }
 
     _newPos() {
@@ -39,22 +41,26 @@ class ItemsFalling {
     update() {
         this.ctx.fillStyle = 'tomato';
 
-        for (let i = 0; i < this.arrayItems.length; i++) {
-            this.arrayItems[i]._newPos();
-            this.ctx.fillRect(this.arrayItems[i].x, this.arrayItems[i].y, this.arrayItems[i].width, this.arrayItems[i].height);
-        }
+        // for (let i = 0; i < this.arrayItems.length; i++) {
+            this._newPos();
+            // this.ctx.fillRect(this.arrayItems[i].x, this.arrayItems[i].y, this.arrayItems[i].width, this.arrayItems[i].height);
+            this.ctx.fillRect(this.x, this.y, this.width, this.height);
+            var image = document.getElementById('lab');
+
+            this.ctx.drawImage(image, this.x, this.y, this.width, this.height);
+        // }
     }
 
-    collidesWithGround() {
-        return this.arrayItems.some((element) => {
-            if (element.y + element.height === this.gameHeight) {
-                this.arrayItems.shift();
+    // collidesWithGround() {
+    //     return this.arrayItems.some((element) => {
+    //         if (element.y + element.height === this.gameHeight) {
+    //             this.arrayItems.shift();
 
-                return true;
-            }
-            else {
-                return false;
-            }
-        })
-    }
+    //             return true;
+    //         }
+    //         else {
+    //             return false;
+    //         }
+    //     })
+    // }
 }

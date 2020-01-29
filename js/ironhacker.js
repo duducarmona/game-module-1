@@ -3,8 +3,10 @@ class Ironhacker {
         this.ctx = ctx;
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
-        this.width = 30;
-        this.height = 30;
+        // this.width = 30;
+        // this.height = 30;
+        this.width = 250;
+        this.height = 150;
         this.x = (this.gameWidth - this.width) / 2;
         this.y = (this.gameHeight - this.height);
         this.speedX = 0;
@@ -25,17 +27,22 @@ class Ironhacker {
 
     update() {
         this._newPos();
-        this.ctx.fillStyle = 'blue';
-        this.ctx.fillRect(this.x, this.y, this.width, this.height);
+        // this.ctx.fillStyle = 'blue';
+        // this.ctx.fillRect(this.x, this.y, this.width, this.height);
+        var image = document.getElementById('source');
+
+        this.ctx.drawImage(image, this.x, this.y, this.width, this.height);
     }
 
     moveLeft() {
         this.speedX = 0;
         this.speedX -= this.speed;
+        // this.x -= this.speed;
     }
 
     moveRight() {
         this.speedX = 0;
         this.speedX += this.speed;
+        // this.x += this.speed;
     }
 }

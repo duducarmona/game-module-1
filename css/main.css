@@ -1,16 +1,55 @@
-.container {
+#container {
+    /* position: relative; */
     margin: 0 auto;
     width: 1500px;
     /* margin-top: 125px; */
+    /* display: none; */
 }
 
-canvas {
+#ironhack {
     margin: 0 auto;
     border: 1px solid black;
+    /* display: none; */
+    background-image: url('../images/fondo_clase.jpg');
+    /* background-repeat: no-repeat; */
+    background-size: cover;
+    /* filter: grayscale(100%); */
+    /* height: 600px; */
+    background-color: rgba(0,0,0,0.7);
+}
+
+/* #background {
+    background-image: url('../images/fondo_clase.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: grayscale(100%);
+    width: 1500px;
+    height: 600px;
+} */
+
+.disabled {
+    display: none;
 }
 
 #submits-chart {
     width: 300px;
     background-color: #F4F6F8;
-    float: right;
+    /* float: right; */
+    margin-left: auto;
+}
+
+#start-container {
+    background-color: teal;
+    width: 1500px; 
+    height: 600px;
+    /* margin: 0 auto; */
+    /* position: absolute; */
+    margin: 0 auto;
+}
+
+#game-over {
+    background-color: tomato;
+    width: 1500px; 
+    height: 600px;
+    margin: 0 auto;
 }
