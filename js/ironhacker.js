@@ -3,8 +3,6 @@ class Ironhacker {
         this.ctx = ctx;
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
-        // this.width = 30;
-        // this.height = 30;
         this.width = 250;
         this.height = 150;
         this.x = (this.gameWidth - this.width) / 2;
@@ -27,10 +25,10 @@ class Ironhacker {
 
     update() {
         this._newPos();
-        // this.ctx.fillStyle = 'blue';
-        // this.ctx.fillRect(this.x, this.y, this.width, this.height);
-        var image = document.getElementById('source');
+        
+        const image = new Image()
 
+        image.src = 'images/ironhacker.png';
         this.ctx.drawImage(image, this.x, this.y, this.width, this.height);
     }
 

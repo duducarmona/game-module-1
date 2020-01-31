@@ -3,9 +3,11 @@ let game;
 
 document.addEventListener('DOMContentLoaded', (event) => {
     const canvas = document.getElementById('ironhack');
+    const startContainer = document.getElementById('start-container');
+
     ctx = canvas.getContext('2d');
 
-    const startBtn = document.getElementById('start');
+    const startBtn = document.getElementById('start-button');
     startBtn.addEventListener('click', start);
 
     game = new Game({
@@ -18,19 +20,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     gameOver);
 
     function start() {
-        let start = document.getElementById("start-container");
-
         canvas.removeAttribute('class');
-        start.setAttribute('class', 'disabled');
-        // canvas.style = "display: block";
-        // container.style = "display: block";
-        // start.style = "display: none";
-
-        // let base_image = new Image();
-        // base_image.src = '../images/ironhacker.png';
-        // base_image.onload = function(){
-        //     ctx.drawImage(base_image, 0, 0);
-        // }
+        startContainer.setAttribute('class', 'disabled');
 
         game.start();
     }
@@ -40,6 +31,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         gameOver.removeAttribute('class');
         canvas.setAttribute('class', 'disabled');
-        start.setAttribute('class', 'disabled');
+        startContainer.setAttribute('class', 'disabled');
     }
 })

@@ -43,8 +43,6 @@ class Game {
     _generateItemsFalling() {
         let generate = false;
 
-        // if (this.itemsFalling.arrayItems.length > 0) {
-        //     const y = this.itemsFalling.arrayItems[this.itemsFalling.arrayItems.length - 1].y;
         if (this.arrayItemsFalling.length > 0) {
             const y = this.arrayItemsFalling[this.arrayItemsFalling.length - 1].y;
 
@@ -60,11 +58,18 @@ class Game {
             const itemFalling = new ItemsFalling(this.ctx, this.width, this.height, this.itemFallingSpeed);
             const x = Math.floor(Math.random() * this.width - itemFalling.width);
             const direction = Math.floor(Math.random() * 2);
+            const labKata = Math.floor(Math.random() * 2);
             
             itemFalling.x = x;
             itemFalling.direction = direction;
 
-            // this.itemsFalling.arrayItems.push(itemFalling);
+            if (labKata === 0) {
+                itemFalling.image = 'images/lab.png';
+            }
+            else {
+                itemFalling.image = 'images/kata.png';
+            }
+
             this.arrayItemsFalling.push(itemFalling);
         }
     }
@@ -83,7 +88,6 @@ class Game {
     }
 
     _collidesWithIronhacker() {
-        // return this.itemsFalling.arrayItems.some((element) => {
         return this.arrayItemsFalling.some((element) => {    
             if (
                 element.y + element.height >= this.height - this.ironhacker.height &&   // Item at the height of the player.
@@ -98,7 +102,6 @@ class Game {
                     )
                 )
             ) {
-                // this.itemsFalling.arrayItems.shift();
                 this.arrayItemsFalling.shift();
                 return true;
             }
@@ -130,8 +133,6 @@ class Game {
 
     _goToNextLevel() {
         this._updateLevel();
-        // this._updateItemsToComplete();
-        // this._updateMaxFails();
         this.submittedItems = 0;
         this._updateSubmittedItems();
         this.submittedFails = 0;
@@ -154,11 +155,10 @@ class Game {
             this.submittedFails++;
             this._updateSubmittedFails();
 
-            if (this.submittedFails <= this.HTMLMaxFails.innerText) {
-                // alert('GAME OVER');
+            if (this.submittedFails > this.HTMLMaxFails.innerText) {
                 this.gameOver();
                 this._stop();
-                document.location.reload();
+                // document.location.reload();
             } 
         }
 
