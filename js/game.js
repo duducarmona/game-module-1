@@ -17,6 +17,8 @@ class Game {
         this.arrayItemsFalling = [];
         this.itemFallingSpeed = 1;
         this.gameOver = callback;
+        this.arrayBeers = [];
+        this.beersTime = undefined;
     }
 
     _assignControlsToKeys() {
@@ -62,6 +64,7 @@ class Game {
             
             itemFalling.x = x;
             itemFalling.direction = direction;
+            itemFalling.type = 0;
 
             if (labKata === 0) {
                 itemFalling.image = 'images/lab.png';
@@ -148,14 +151,33 @@ class Game {
         // this.itemFallingSpeed += 1;
     }
 
+    _updateItemsFalling() {
+        for (let i = 0; i < this.arrayItemsFalling.length; i++) {
+            this.arrayItemsFalling[i].update();
+        }
+    }
+
     _update() {
         this._cleanScreen();
         this.ironhacker.update();
         this._generateItemsFalling();
 
-        for (let i = 0; i < this.arrayItemsFalling.length; i++) {
-            this.arrayItemsFalling[i].update();
+        // for (let i = 0; i < this.arrayItemsFalling.length; i++) {
+        //     this.arrayItemsFalling[i].update();
+        // }
+
+        // if (!!this.beersTime) {
+        //     this.beersTime = setTimeout(this._generateIronbeers.bind(this), 10000);
+        // }
+        if (this.interval % 1000 === 0) {
+            this._generateIronbeers();
         }
+
+        for (let i = 0; i < this.arrayBeers.length; i++) {
+            this.arrayBeers[i].update();
+        }
+
+        this._updateItemsFalling();
 
         if (this._collidesWithGround()) {
             // Show warning.
@@ -194,5 +216,31 @@ class Game {
             clearInterval(this.interval);
             this.interval = undefined;
         }
+    }
+
+    _generateIronbeers() {
+        const MAX_BEERS = 20;
+        const BEER_SPEED = 2;
+        // const arrayBeers = [];
+        const distanceBetweenBeers = 300;
+
+        for (let i = 0; i < MAX_BEERS; i++) {
+            const beer = new ItemsFalling(this.ctx, this.width, this.height, BEER_SPEED);
+            // const x = Math.floor(Math.random() * this.width - itemFalling.width);
+            const x = (i * distanceBetweenBeers) % this.width;
+            const direction = Math.floor(Math.random() * 2);
+
+            beer.x = x;
+            beer.direction = direction;
+            beer.image = 'images/beer_02_turned.png';
+            beer.type = 1;
+
+            // this.arrayBeers.push(beer);
+            this.arrayItemsFalling.push(beer);
+        }
+
+        // for (let i = 0; i < this.arrayBeers.length; i++) {
+        //     this.arrayBeers[i].update();
+        // }
     }
 }

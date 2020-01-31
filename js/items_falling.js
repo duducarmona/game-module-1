@@ -11,6 +11,7 @@ class ItemsFalling {
         this.gameHeight = gameHeight;
         this.speed = speed;
         this.image = undefined;
+        this.type = undefined;  // LAB/Kata = 0, Beer = 1
     }
 
     _newPos() {
@@ -37,7 +38,7 @@ class ItemsFalling {
     }
 
     update() {
-        this.ctx.fillStyle = 'tomato';
+        // this.ctx.fillStyle = 'tomato';
         this._newPos();
             
         const image = new Image()
