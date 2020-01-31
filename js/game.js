@@ -77,7 +77,10 @@ class Game {
     _collidesWithGround() {
         return this.arrayItemsFalling.some((element) => {
             if (element.y + element.height === this.height) {
-                this.arrayItemsFalling.shift();
+                // this.arrayItemsFalling.shift();
+                const pos = this.arrayItemsFalling.indexOf(element);
+
+                this.arrayItemsFalling.splice(pos, 1);
 
                 return true;
             }
@@ -102,7 +105,11 @@ class Game {
                     )
                 )
             ) {
-                this.arrayItemsFalling.shift();
+                // this.arrayItemsFalling.shift();
+                const pos = this.arrayItemsFalling.indexOf(element);
+
+                this.arrayItemsFalling.splice(pos, 1);
+
                 return true;
             }
             else {
