@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         width: canvas.width,
         height: canvas.height,
         ironhacker: new Ironhacker(ctx, canvas.width, canvas.height),
-        itemsFalling: new ItemsFalling(ctx, canvas.width, canvas.height)
+        itemFalling: new ItemFalling(ctx, canvas.width, canvas.height)
     },
     gameOver);
 
@@ -31,6 +31,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         gameOver.removeAttribute('class');
         canvas.setAttribute('class', 'disabled');
-        startContainer.setAttribute('class', 'disabled');
+        // startContainer.setAttribute('class', 'disabled');
     }
 })

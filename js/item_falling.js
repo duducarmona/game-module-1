@@ -1,4 +1,4 @@
-class ItemsFalling {
+class ItemFalling {
     constructor(ctx, gameWidth, gameHeight, speed) {
         this.width = 50;
         this.height = 60;

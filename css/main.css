@@ -1,6 +1,12 @@
+
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
 #container {
     margin: 0 auto;
     width: 1500px;
+    position: relative;
 }
 
 #ironhack {
@@ -22,11 +28,16 @@
 }
 
 #start-container {
-    background-color: teal;
+    /* background-color: teal; */
     width: 1500px;
     height: 600px;
-    margin: 0 auto;
-    text-align:center;
+    /* margin: 0 auto; */
+    /* text-align:center; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    
 }
 
 #game-over {
@@ -37,9 +48,30 @@
 }
 
 h1 {
-    background-color: turquoise;
-    display:inline-block;
+    /* background-color: turquoise; */
+    /* display:inline-block; */
     font-size: 50px;
-    padding-left: auto;
-    padding-right: auto;
+    color: #217DB8;
+    /* padding-left: auto;
+    padding-right: auto; */
+    /* position: absolute;
+    top: 350px;
+    right: 300px; */
+    border: 1px solid #217DB8;
+    padding: 50px;
+}
+
+#start-button {
+    /* position: absolute; */
+    /* top: 500px; */
+    width: 250px;
+    height: 100px;
+}
+
+#ironhack-logo {
+    /* position: absolute; */
+    width: 100px;
+    /* top: 225px;
+    right: 650px; */
+    /* margin: 0 auto; */
 }
