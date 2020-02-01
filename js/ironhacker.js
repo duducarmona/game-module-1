@@ -3,12 +3,13 @@ class Ironhacker {
         this.ctx = ctx;
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
-        this.width = 250;
-        this.height = 150;
+        this.width = 75;
+        this.height = 100;
         this.x = (this.gameWidth - this.width) / 2;
         this.y = (this.gameHeight - this.height);
         this.speedX = 0;
         this.speed = 10;
+        this.image = '../images/ironhacker_right.png';
     }
 
     _newPos() {
@@ -27,7 +28,10 @@ class Ironhacker {
         
         const image = new Image()
 
-        image.src = 'images/ironhacker.png';
+        // image.src = 'images/geek-gif.gif';
+
+        image.src = this.image;
+
         this.ctx.drawImage(image, this.x, this.y, this.width, this.height);
     }
 
