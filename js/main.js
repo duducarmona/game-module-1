@@ -4,6 +4,7 @@ let game;
 document.addEventListener('DOMContentLoaded', (event) => {
     const canvas = document.getElementById('ironhack');
     const startContainer = document.getElementById('start-container');
+    const submitsChart = document.getElementById('submits-chart');
 
     ctx = canvas.getContext('2d');
 
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     function start() {
         canvas.removeAttribute('class');
+        submitsChart.removeAttribute('class');
         startContainer.setAttribute('class', 'disabled');
 
         game.start();
@@ -31,6 +33,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         gameOver.removeAttribute('class');
         canvas.setAttribute('class', 'disabled');
-        // startContainer.setAttribute('class', 'disabled');
+        submitsChart.setAttribute('class', 'disabled');
     }
 })

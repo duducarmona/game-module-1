@@ -38,7 +38,6 @@ class ItemFalling {
     }
 
     update() {
-        // this.ctx.fillStyle = 'tomato';
         this._newPos();
             
         const image = new Image()

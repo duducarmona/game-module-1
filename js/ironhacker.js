@@ -8,7 +8,6 @@ class Ironhacker {
         this.x = (this.gameWidth - this.width) / 2;
         this.y = (this.gameHeight - this.height);
         this.speedX = 0;
-        this.speedY = 0;
         this.speed = 10;
     }
 

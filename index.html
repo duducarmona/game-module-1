@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Ironhack. The intensive game</title>
-    <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600" rel="stylesheet"> -->
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
     <div id="container">
-        <div id="submits-chart">
+        <div id="submits-chart" class="disabled">
             <p>Level <span id="level">1</span></p>
             <p>LAB's and Katas to complete: <span id="items-to-complete">10</span></p>
             <p>Number of submits you can fail: <span id="max-fails">2</span></p>
@@ -19,9 +19,9 @@
             <p>LAB's and katas after the deadline: <span id="submitted-fails">0</span></p>
         </div>
         <canvas id="ironhack" class="disabled" width="1500" height="600"></canvas>
-        <div id="start-container">
-            <img id="ironhack-logo" src="images/ironhack_logo.png" alt="Logo Ironhack">
-            <h1>IRONHACK. THE INTENSIVE GAME</h1>
+        <div id="start-container" class="flex">
+            <img id="ironhack-logo" src="images/ironhack_logo_pixelated_01.png" alt="Logo Ironhack">
+            <h1 id="iron">IRONHACK. THE INTENSIVE GAME</h1>
             <button id="start-button">START</button>
         </div>
         <div id="game-over" class="disabled">

@@ -18,7 +18,7 @@ class Game {
         this.itemFallingSpeed = 1;
         this.gameOver = callback;
         this.arrayBeers = [];
-        this.beersTime = undefined;
+        this.beersFrecuency = 1000;
         this.pause = 0;     // 0: game running, 1: game paused
     }
 
@@ -96,38 +96,60 @@ class Game {
         const arrayReturn = [];
 
         arrayReturn[0] = this.arrayItemsFalling.some((element) => {
-                                // if (element.y + element.height === this.height) {
-                                if (element.y + element.height >= this.height) {
-                                    // this.arrayItemsFalling.shift();
-                                    const pos = this.arrayItemsFalling.indexOf(element);
-                    
-                                    this.arrayItemsFalling.splice(pos, 1);
-                    
-                                    arrayReturn[1] = element.type;
+            if (element.y + element.height >= this.height) {
+                const pos = this.arrayItemsFalling.indexOf(element);
 
-                                    return true;
-                                }
-                                else {
-                                    return false;
-                                }
-                            })
+                this.arrayItemsFalling.splice(pos, 1);
+
+                arrayReturn[1] = element.type;
+
+                return true;
+            }
+            else {
+                return false;
+            }
+        })
 
         return arrayReturn;
+    }
 
-        // return this.arrayItemsFalling.some((element) => {
-        //     // if (element.y + element.height === this.height) {
-        //     if (element.y + element.height >= this.height) {
-        //         // this.arrayItemsFalling.shift();
-        //         const pos = this.arrayItemsFalling.indexOf(element);
+    _collidesWithIronhacker() {
+        const arrayReturn = [];
+        // let result = undefined;
+        // let elementType = undefined;
 
-        //         this.arrayItemsFalling.splice(pos, 1);
+        arrayReturn[0] = this.arrayItemsFalling.some((element) => {    
+            if (
+                element.y + element.height >= this.height - this.ironhacker.height &&   // Item at the height of the player.
+                (
+                    (   // Collision on the left of the player.
+                        element.x + element.width >= this.ironhacker.x &&
+                        element.x + element.width <= this.ironhacker.x + this.ironhacker.width
+                    ) ||
+                    (   // Collision on the right of the player.
+                        this.ironhacker.x + this.ironhacker.height >= element.x &&
+                        this.ironhacker.x + this.ironhacker.height <= element.x + element.width
+                    )
+                )
+            ) {
+                const pos = this.arrayItemsFalling.indexOf(element);
 
-        //         return true;
-        //     }
-        //     else {
-        //         return false;
-        //     }
-        // })
+                this.arrayItemsFalling.splice(pos, 1);
+
+                arrayReturn[1] = element.type;
+
+                return true;
+            }
+            else {
+                return false;
+            }
+        })
+
+        // if (elementType === 1) {    // Beer
+        //     this._reverseIronhackerMovement();
+        // }
+
+        return arrayReturn;
     }
 
     _reverseAssignControlsToKeys() {
@@ -148,74 +170,10 @@ class Game {
     }
 
     _reverseIronhackerMovement() {
+        const DRUNK_TIME = 10000;
+
         this._reverseAssignControlsToKeys();
-        setTimeout(this._assignControlsToKeys.bind(this), 10000);
-    }
-
-    _collidesWithIronhacker() {
-        let result = undefined;
-        let elementType = undefined;
-
-        result = this.arrayItemsFalling.some((element) => {    
-            if (
-                element.y + element.height >= this.height - this.ironhacker.height &&   // Item at the height of the player.
-                (
-                    (   // Collision on the left of the player.
-                        element.x + element.width >= this.ironhacker.x &&
-                        element.x + element.width <= this.ironhacker.x + this.ironhacker.width
-                    ) ||
-                    (   // Collision on the right of the player.
-                        this.ironhacker.x + this.ironhacker.height >= element.x &&
-                        this.ironhacker.x + this.ironhacker.height <= element.x + element.width
-                    )
-                )
-            ) {
-                // this.arrayItemsFalling.shift();
-                const pos = this.arrayItemsFalling.indexOf(element);
-
-                this.arrayItemsFalling.splice(pos, 1);
-
-                elementType = element.type;
-
-                return true;
-            }
-            else {
-                return false;
-            }
-        })
-
-        if (elementType === 1) {    // Beer
-            // Reverse the Ironhacker's movement
-            this._reverseIronhackerMovement();
-        }
-
-        return result;
-
-        // return this.arrayItemsFalling.some((element) => {    
-        //     if (
-        //         element.y + element.height >= this.height - this.ironhacker.height &&   // Item at the height of the player.
-        //         (
-        //             (   // Collision on the left of the player.
-        //                 element.x + element.width >= this.ironhacker.x &&
-        //                 element.x + element.width <= this.ironhacker.x + this.ironhacker.width
-        //             ) ||
-        //             (   // Collision on the right of the player.
-        //                 this.ironhacker.x + this.ironhacker.height >= element.x &&
-        //                 this.ironhacker.x + this.ironhacker.height <= element.x + element.width
-        //             )
-        //         )
-        //     ) {
-        //         // this.arrayItemsFalling.shift();
-        //         const pos = this.arrayItemsFalling.indexOf(element);
-
-        //         this.arrayItemsFalling.splice(pos, 1);
-
-        //         return true;
-        //     }
-        //     else {
-        //         return false;
-        //     }
-        // })
+        setTimeout(this._assignControlsToKeys.bind(this), DRUNK_TIME);
     }
 
     _updateSubmittedItems() {
@@ -254,31 +212,29 @@ class Game {
         }
     }
 
-    _update() {
-        this._cleanScreen();
-        this.ironhacker.update();
-        this._generateItemsFalling();
+    _generateIronbeers() {
+        if (this.interval % this.beersFrecuency === 0) {
+            const MAX_BEERS = 20;
+            const BEER_SPEED = 2;
+            const distanceBetweenBeers = 300;
 
-        // for (let i = 0; i < this.arrayItemsFalling.length; i++) {
-        //     this.arrayItemsFalling[i].update();
-        // }
+            for (let i = 0; i < MAX_BEERS; i++) {
+                const beer = new ItemFalling(this.ctx, this.width, this.height, BEER_SPEED);
+                const x = (i * distanceBetweenBeers) % this.width;
+                const direction = Math.floor(Math.random() * 2);
 
-        // if (!!this.beersTime) {
-        //     this.beersTime = setTimeout(this._generateIronbeers.bind(this), 10000);
-        // }
-        if (this.interval % 1000 === 0) {
-            this._generateIronbeers();
+                beer.x = x;
+                beer.direction = direction;
+                beer.image = 'images/beer_02_turned.png';
+                beer.type = 1;
+                this.arrayItemsFalling.push(beer);
+            }
         }
+    }
 
-        for (let i = 0; i < this.arrayBeers.length; i++) {
-            this.arrayBeers[i].update();
-        }
+    _checkCollisionsWithGround() {
+        const arrayCollides = this._collidesWithGround();
 
-        this._updateItemsFalling();
-
-        let arrayCollides = this._collidesWithGround();
-
-        // if (this._collidesWithGround()) {
         if (arrayCollides[0] && arrayCollides[1] === 0) {
             // Show warning.
             this.submittedFails++;
@@ -290,16 +246,43 @@ class Game {
                 // document.location.reload();
             } 
         }
+    }
 
-        if (this._collidesWithIronhacker()) {
-            this.submittedItems++;
-            this._updateSubmittedItems();
+    _checkCollisionsWithIronhacker() {
+        const arrayCollides = this._collidesWithIronhacker();
 
-            if (this.submittedItems == this.HTMLItemsToComplete.innerText) {
-                alert('Congratulations! You survived another day at Ironhack!');
-                this._goToNextLevel();
+        if (arrayCollides[0]) {
+            switch (arrayCollides[1]) {
+                case 0:
+                    this.submittedItems++;
+                    this._updateSubmittedItems();
+        
+                    if (this.submittedItems == this.HTMLItemsToComplete.innerText) {
+                        // alert('Congratulations! You survived another day at Ironhack!');
+                        this._goToNextLevel();
+                    }
+                    break;
+                case 1:
+                    this._reverseIronhackerMovement();
+                    break;
+                default:
+                    break;
             }
         }
+    }
+
+    _checkCollisions() {
+        this._checkCollisionsWithGround();
+        this._checkCollisionsWithIronhacker();
+    }
+
+    _update() {
+        this._cleanScreen();
+        this.ironhacker.update();
+        this._generateItemsFalling();
+        this._generateIronbeers();
+        this._updateItemsFalling();
+        this._checkCollisions();
 
         if (!!this.interval) {
             this.interval = window.requestAnimationFrame(this._update.bind(this));
@@ -316,31 +299,5 @@ class Game {
             clearInterval(this.interval);
             this.interval = undefined;
         }
-    }
-
-    _generateIronbeers() {
-        const MAX_BEERS = 20;
-        const BEER_SPEED = 2;
-        // const arrayBeers = [];
-        const distanceBetweenBeers = 300;
-
-        for (let i = 0; i < MAX_BEERS; i++) {
-            const beer = new ItemFalling(this.ctx, this.width, this.height, BEER_SPEED);
-            // const x = Math.floor(Math.random() * this.width - itemFalling.width);
-            const x = (i * distanceBetweenBeers) % this.width;
-            const direction = Math.floor(Math.random() * 2);
-
-            beer.x = x;
-            beer.direction = direction;
-            beer.image = 'images/beer_02_turned.png';
-            beer.type = 1;
-
-            // this.arrayBeers.push(beer);
-            this.arrayItemsFalling.push(beer);
-        }
-
-        // for (let i = 0; i < this.arrayBeers.length; i++) {
-        //     this.arrayBeers[i].update();
-        // }
     }
 }
