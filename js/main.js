@@ -16,6 +16,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.location.reload();
     });
 
+    const playAgainBtn = document.getElementById('play-again-button');
+    playAgainBtn.addEventListener('click', () => {
+        document.location.reload();
+    });
+
     game = new Game({
         ctx,
         width: canvas.width,

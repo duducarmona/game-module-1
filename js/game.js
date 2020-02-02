@@ -24,6 +24,7 @@ class Game {
         this.fired = false;
         this.pauseScreen = document.getElementById('pause-screen');
         this.gameOn = true;
+        this.graduatedScreen = document.getElementById('graduated');
     }
 
     _assignControlsToKeys() {
@@ -251,6 +252,13 @@ class Game {
         }
     }
 
+    _graduated() {
+        this._stop();
+        this.gameOn = false;
+        this.graduatedScreen.removeAttribute('class');
+        this.graduatedScreen.setAttribute('class', 'flex');
+    }
+
     _checkCollisionsWithGround() {
         const arrayCollides = this._collidesWithGround();
 
@@ -278,8 +286,7 @@ class Game {
         
                     if (this.submittedItems == this.HTMLItemsToComplete.innerText) {
                         if (this._ironhackerWon()) {
-                            // Mostrar pantalla de ganador y terminar juego.
-                            alert('Congratulations Ironhacker! You have graduated!');
+                            this._graduated();
                         }
                         else {
                             this._goToNextLevel();
