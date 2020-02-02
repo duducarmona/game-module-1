@@ -6,6 +6,7 @@ html {
 #container {
     margin: 0 auto;
     width: 1500px;
+    position: relative;
 }
 
 #ironhack {
@@ -14,6 +15,8 @@ html {
     background-image: url('../images/classroom_ironhack.png');
     background-size: 1500px 600px, cover;
     background-repeat: no-repeat;
+    position: absolute;
+    z-index: -1
 }
 
 .disabled {
@@ -67,4 +70,19 @@ h1 {
 
 #ironhack-logo {
     width: 250px;
+}
+
+#pause-screen {
+    width: 1500px;
+    height: 600px;
+    position: absolute;
+    border-radius: 5px;
+    background-color: rgba(49, 49, 49, 0.322);
+    z-index: 1;
+    font-family: 'VT323', monospace;
+    font-size: 100px;
+    font-weight: bolder;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
 }

@@ -19,7 +19,9 @@ class Game {
         this.gameOver = callback;
         this.arrayBeers = [];
         this.beersFrecuency = 1000;
-        this.pause = 0;     // 0: game running, 1: game paused
+        this.pause = false;
+        this.fired = false;
+        this.pauseScreen = document.getElementById('pause-screen');
     }
 
     _assignControlsToKeys() {
@@ -34,24 +36,31 @@ class Game {
                     this.ironhacker.moveRight();
                     break;
                 case 80:    // pause
-                    this._pause();
+                    if(!this.fired) {
+                        this.fired = true;
+                        this._pause();
+                    }
                     break;
             }
-        })
+        });
 
         document.addEventListener('keyup', e => {
             this.ironhacker.speedX = 0;
-        })
+            this.fired = false;
+        });
     }
 
     _pause() {
-        if(this.pause === 0) {
-            this._stop();
-            this.pause = 1;
+        if(this.pause) {
+            this.pauseScreen.setAttribute('class', 'disabled');
+            this.start();
+            this.pause = false;
         }
         else {
-            this.start();
-            this.pause = 0;
+            this._stop();
+            this.pauseScreen.removeAttribute('class');
+            this.pauseScreen.setAttribute('class', 'flex');
+            this.pause = true;
         }
     }
 
