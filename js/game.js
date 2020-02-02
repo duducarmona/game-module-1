@@ -152,11 +152,11 @@ class Game {
         document.addEventListener('keydown', e => {
             switch (e.keyCode) {
                 case 37: // arrow left
-                    this.ironhacker.image = '../images/ironhacker_left.png';
+                    this.ironhacker.image = '../images/ironhacker_drunk_left.png';
                     this.ironhacker.moveRight();
                     break;
                 case 39: // arrow right
-                    this.ironhacker.image = '../images/ironhacker_right.png';
+                    this.ironhacker.image = '../images/ironhacker_drunk_right.png';
                     this.ironhacker.moveLeft();
                     break;
             }

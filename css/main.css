@@ -11,9 +11,9 @@ html {
 #ironhack {
     margin: 0 auto;
     border: 1px solid black;
-    background-image: url('../images/fondo_clase.jpg');
-    background-size: cover;
-    background-color: rgba(0,0,0,0.7);
+    background-image: url('../images/classroom_ironhack.png');
+    background-size: 1500px 600px, cover;
+    background-repeat: no-repeat;
 }
 
 .disabled {

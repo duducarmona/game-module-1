@@ -28,8 +28,6 @@ class Ironhacker {
         
         const image = new Image()
 
-        // image.src = 'images/geek-gif.gif';
-
         image.src = this.image;
 
         this.ctx.drawImage(image, this.x, this.y, this.width, this.height);
