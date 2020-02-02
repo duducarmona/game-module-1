@@ -12,11 +12,16 @@
 <body>
     <div id="container">
         <div id="submits-chart" class="disabled">
-            <p>Level <span id="level">1</span></p>
-            <p>LAB's and Katas to complete: <span id="items-to-complete">10</span></p>
-            <p>Number of submits you can fail: <span id="max-fails">2</span></p>
-            <p>LAB's and katas submitted : <span id="submitted-items">0</span></p>
-            <p>LAB's and katas after the deadline: <span id="submitted-fails">0</span></p>
+            <div id="submits-chart-1">
+                <p>Level: <span id="level">December</span></p>
+                <p>LABs/Katas to submit: <span id="items-to-complete">10</span></p>
+                <p>Allowed LABs/Katas failed: <span id="max-fails">2</span></p>
+            </div>
+            <div id="submits-chart-2">
+                <p id="p-hide">_</p>
+                <p>LABs/Katas submitted: <span id="submitted-items">0</span></p>
+                <p>LABs/katas failed: <span id="submitted-fails">0</span></p>
+            </div>
         </div>
         <canvas id="ironhack" class="disabled" width="1500" height="600"></canvas>
         <div id="start-container" class="flex">
@@ -24,10 +29,13 @@
             <h1 id="iron">IRONHACK. THE INTENSIVE GAME</h1>
             <button id="start-button">START</button>
         </div>
-        <div id="game-over" class="disabled">
-            GAME OVER
-        </div>
         <div id="pause-screen" class="disabled">- P A U S E -</div>
+        <div id="game-over" class="disabled">
+            <div id="bootcamp-over">
+                <span id="bootcamp">B O O T C A M P           </span><span id="over">O V E R !</span>
+            </div>
+            <button id="try-again-button" class="btn">TRY AGAIN</button>
+        </div>
     </div>
     <script src="js/item_falling.js"></script>
     <script src="js/ironhacker.js"></script>

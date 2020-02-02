@@ -11,6 +11,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const startBtn = document.getElementById('start-button');
     startBtn.addEventListener('click', start);
 
+    const tryAgainBtn = document.getElementById('try-again-button');
+    tryAgainBtn.addEventListener('click', () => {
+        document.location.reload();
+    });
+
     game = new Game({
         ctx,
         width: canvas.width,
@@ -23,6 +28,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     function start() {
         canvas.removeAttribute('class');
         submitsChart.removeAttribute('class');
+        submitsChart.setAttribute('class', 'flex');
         startContainer.setAttribute('class', 'disabled');
 
         game.start();
@@ -32,7 +38,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         let gameOver = document.getElementById('game-over');
 
         gameOver.removeAttribute('class');
-        canvas.setAttribute('class', 'disabled');
-        submitsChart.setAttribute('class', 'disabled');
+        gameOver.setAttribute('class', 'flex');
     }
 })

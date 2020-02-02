@@ -13,7 +13,8 @@ class Game {
         this.HTMLMaxFails = document.getElementById('max-fails');
         this.HTMLItemsToComplete = document.getElementById('items-to-complete');
         this.HTMLLevel = document.getElementById('level');
-        this.level = 1;
+        this.level = 0;
+        this.levelsArray = ['December', 'January', 'February', 'March', 'April', 'May', 'June']
         this.arrayItemsFalling = [];
         this.itemFallingSpeed = 1;
         this.gameOver = callback;
@@ -22,25 +23,30 @@ class Game {
         this.pause = false;
         this.fired = false;
         this.pauseScreen = document.getElementById('pause-screen');
+        this.gameOn = true;
     }
 
     _assignControlsToKeys() {
+        this.ironhacker.image = '../images/ironhacker_right.png';
+
         document.addEventListener('keydown', e => {
-            switch (e.keyCode) {
-                case 37:    // arrow left
-                    this.ironhacker.image = '../images/ironhacker_left.png';
-                    this.ironhacker.moveLeft();
-                    break;
-                case 39:    // arrow right
-                    this.ironhacker.image = '../images/ironhacker_right.png';
-                    this.ironhacker.moveRight();
-                    break;
-                case 80:    // pause
-                    if(!this.fired) {
-                        this.fired = true;
-                        this._pause();
-                    }
-                    break;
+            if (this.gameOn) {
+                switch (e.keyCode) {
+                    case 37:    // arrow left
+                        this.ironhacker.image = '../images/ironhacker_left.png';
+                        this.ironhacker.moveLeft();
+                        break;
+                    case 39:    // arrow right
+                        this.ironhacker.image = '../images/ironhacker_right.png';
+                        this.ironhacker.moveRight();
+                        break;
+                    case 80:    // pause
+                        if(!this.fired) {
+                            this.fired = true;
+                            this._pause();
+                        }
+                        break;
+                }
             }
         });
 
@@ -158,6 +164,8 @@ class Game {
     }
 
     _reverseAssignControlsToKeys() {
+        this.ironhacker.image = '../images/ironhacker_drunk_left.png';
+
         document.addEventListener('keydown', e => {
             switch (e.keyCode) {
                 case 37: // arrow left
@@ -192,7 +200,7 @@ class Game {
     }
 
     _updateLevel() {
-        this.HTMLLevel.innerText = ++this.level;
+        this.HTMLLevel.innerText = this.levelsArray[++this.level];
     }
 
     _updateItemsToComplete() {
@@ -201,6 +209,10 @@ class Game {
 
     _updateMaxFails() {
         this.HTMLMaxFails.innerText = parseInt(this.HTMLItemsToComplete.innerText) * 0.2;
+    }
+
+    _ironhackerWon() {
+        return this.level === this.levelsArray.length - 1;
     }
 
     _goToNextLevel() {
@@ -232,7 +244,7 @@ class Game {
 
                 beer.x = x;
                 beer.direction = direction;
-                beer.image = 'images/beer_02_turned.png';
+                beer.image = '../images/beer_02_turned.png';
                 beer.type = 1;
                 this.arrayItemsFalling.push(beer);
             }
@@ -248,9 +260,9 @@ class Game {
             this._updateSubmittedFails();
 
             if (this.submittedFails > this.HTMLMaxFails.innerText) {
+                this.gameOn = false;
                 this.gameOver();
                 this._stop();
-                // document.location.reload();
             } 
         }
     }
@@ -265,8 +277,13 @@ class Game {
                     this._updateSubmittedItems();
         
                     if (this.submittedItems == this.HTMLItemsToComplete.innerText) {
-                        // alert('Congratulations! You survived another day at Ironhack!');
-                        this._goToNextLevel();
+                        if (this._ironhackerWon()) {
+                            // Mostrar pantalla de ganador y terminar juego.
+                            alert('Congratulations Ironhacker! You have graduated!');
+                        }
+                        else {
+                            this._goToNextLevel();
+                        }
                     }
                     break;
                 case 1:
@@ -297,6 +314,7 @@ class Game {
     }
 
     start() {
+        this.gameOn = true;
         this._assignControlsToKeys();
         this.interval = window.requestAnimationFrame(this._update.bind(this));
     }
