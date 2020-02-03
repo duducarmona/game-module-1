@@ -5,7 +5,8 @@ class ItemFalling {
         this.x = 0;
         this.y = 0;
         this.ctx = ctx;
-        this.frequency = 100;
+        // this.frequency = 100;
+        // this.frequency = frequency;
         this.direction = 0;     // Right = 0, Left = 1
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;

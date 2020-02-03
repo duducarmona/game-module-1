@@ -17,6 +17,7 @@ class Game {
         this.levelsArray = ['December', 'January', 'February', 'March', 'April', 'May', 'June']
         this.arrayItemsFalling = [];
         this.itemFallingSpeed = 1;
+        this.itemsFallingFrequency = 100;
         this.gameOver = callback;
         this.arrayBeers = [];
         this.beersFrecuency = 1000;
@@ -25,20 +26,24 @@ class Game {
         this.pauseScreen = document.getElementById('pause-screen');
         this.gameOn = true;
         this.graduatedScreen = document.getElementById('graduated');
+        this.levelCompletedScreen = document.getElementById('level-completed');
+        this.countDown = document.getElementById('count-down');
+        this.timer = undefined;
+        this.counter = 2;
     }
 
     _assignControlsToKeys() {
-        this.ironhacker.image = '../images/ironhacker_right.png';
+        this.ironhacker.image = './images/ironhacker_right.png';
 
         document.addEventListener('keydown', e => {
             if (this.gameOn) {
                 switch (e.keyCode) {
                     case 37:    // arrow left
-                        this.ironhacker.image = '../images/ironhacker_left.png';
+                        this.ironhacker.image = './images/ironhacker_left.png';
                         this.ironhacker.moveLeft();
                         break;
                     case 39:    // arrow right
-                        this.ironhacker.image = '../images/ironhacker_right.png';
+                        this.ironhacker.image = './images/ironhacker_right.png';
                         this.ironhacker.moveRight();
                         break;
                     case 80:    // pause
@@ -81,7 +86,7 @@ class Game {
         if (this.arrayItemsFalling.length > 0) {
             const y = this.arrayItemsFalling[this.arrayItemsFalling.length - 1].y;
 
-            if (y > this.itemFalling.frequency) {
+            if (y > this.itemsFallingFrequency) {
                 generate = true;
             }
         }
@@ -100,10 +105,10 @@ class Game {
             itemFalling.type = 0;
 
             if (labKata === 0) {
-                itemFalling.image = 'images/lab.png';
+                itemFalling.image = './images/lab.png';
             }
             else {
-                itemFalling.image = 'images/kata.png';
+                itemFalling.image = './images/kata.png';
             }
 
             this.arrayItemsFalling.push(itemFalling);
@@ -165,16 +170,16 @@ class Game {
     }
 
     _reverseAssignControlsToKeys() {
-        this.ironhacker.image = '../images/ironhacker_drunk_left.png';
+        this.ironhacker.image = './images/ironhacker_drunk_left.png';
 
         document.addEventListener('keydown', e => {
             switch (e.keyCode) {
                 case 37: // arrow left
-                    this.ironhacker.image = '../images/ironhacker_drunk_left.png';
+                    this.ironhacker.image = './images/ironhacker_drunk_left.png';
                     this.ironhacker.moveRight();
                     break;
                 case 39: // arrow right
-                    this.ironhacker.image = '../images/ironhacker_drunk_right.png';
+                    this.ironhacker.image = './images/ironhacker_drunk_right.png';
                     this.ironhacker.moveLeft();
                     break;
             }
@@ -215,15 +220,37 @@ class Game {
     _ironhackerWon() {
         return this.level === this.levelsArray.length - 1;
     }
+    
+    _startCountDownLevel() {
+        this.timer = setTimeout(this._countDown.bind(this), 1000);
+    }
+
+    _countDown() {
+        this.countDown.innerText = this.counter--;
+
+        if (this.counter == 0)
+        {
+            clearTimeout(this.timer);
+            this.timer = undefined;
+        }
+        else
+        {
+            this.timer = setTimeout(this._countDown.bind(this), 1000);
+        }
+    }
 
     _goToNextLevel() {
+        this._stop();
+        this.levelCompletedScreen.removeAttribute('class');
+        this.levelCompletedScreen.setAttribute('class', 'flex');
+        this._startCountDownLevel();
         this._updateLevel();
         this.submittedItems = 0;
         this._updateSubmittedItems();
         this.submittedFails = 0;
         this._updateSubmittedFails();
-        // this.itemsFalling.frequency *= 0.3;
-        // this.itemFallingSpeed += 1;
+        this.itemFallingSpeed += 0.2;
+        this.itemsFallingFrequency -= 10;
     }
 
     _updateItemsFalling() {
@@ -245,7 +272,7 @@ class Game {
 
                 beer.x = x;
                 beer.direction = direction;
-                beer.image = '../images/beer_02_turned.png';
+                beer.image = './images/beer_02_turned.png';
                 beer.type = 1;
                 this.arrayItemsFalling.push(beer);
             }

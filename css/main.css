@@ -81,8 +81,30 @@ html {
     text-align: center;
     justify-content: center;
     align-items: center;
-    color: red;
+    color: crimson;;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+#level-completed {
+    width: 1500px;
+    height: 600px;
+    margin: 0 auto;
+    position: absolute;
+    z-index: 4;
+    background-color: rgba(49, 49, 49, 0.322);
+    font-family: 'VT323', monospace;
+    font-size: 100px;
+    font-weight: bolder;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    color: crimson;;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+#level-completed > p {
+    margin: 0;
 }
 
 #bootcamp {
@@ -94,7 +116,8 @@ html {
 }
 
 #bootcamp-over {
-    color:  red;
+    color:  crimson;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 h1 {
@@ -115,18 +138,21 @@ button {
     box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
                 inset -2px -2px 3px rgba(0, 0, 0, .6);
     margin-top: 40px;
+    /* background-color: crimson; */
 }
 
 #try-again-button {
     font-size: 60px;
     margin-top: 100px;
     width: 350px;
+    background-color: crimson;
 }
 
 #play-again-button {
     font-size: 60px;
     margin-top: 10px;
     width: 350px;
+    background-color: crimson;
 }
 
 #ironhack-logo {
