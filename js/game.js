@@ -29,7 +29,7 @@ class Game {
         this.levelCompletedScreen = document.getElementById('level-completed');
         this.countDown = document.getElementById('count-down');
         this.timer = undefined;
-        this.counter = 2;
+        this.counter = 4;
     }
 
     _assignControlsToKeys() {
@@ -222,20 +222,29 @@ class Game {
     }
     
     _startCountDownLevel() {
-        this.timer = setTimeout(this._countDown.bind(this), 1000);
+        this.timer = setTimeout(this._countDown.bind(this), 500);
     }
 
     _countDown() {
-        this.countDown.innerText = this.counter--;
+        if (this.timer % 2 === 0) {
+            this.countDown.style.fontSize = '200px';
+        }
+        else {
+            this.counter--;
+            this.countDown.style.fontSize = '100px';
+        }
 
-        if (this.counter == 0)
+        this.countDown.innerText = this.counter;
+
+        if (this.counter < 0)
         {
+            this.countDown.innerText = 'GO!';
             clearTimeout(this.timer);
             this.timer = undefined;
         }
         else
         {
-            this.timer = setTimeout(this._countDown.bind(this), 1000);
+            this.timer = setTimeout(this._countDown.bind(this), 500);
         }
     }
 

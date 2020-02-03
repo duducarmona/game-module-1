@@ -172,3 +172,7 @@ button {
     justify-content: center;
     align-items: center;
 }
+
+#count-down {
+    height: 201px;
+}
