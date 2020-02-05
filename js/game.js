@@ -7,11 +7,11 @@ class Game {
         this.height = options.height;
         this.itemFalling = options.itemFalling;
         this.submittedItems = 0;
-        this.HTMLSubmittedItems = document.getElementById('submitted-items');
+        // this.HTMLSubmittedItems = document.getElementById('submitted-items');
         this.submittedFails = 0;
-        this.HTMLSubmittedFails = document.getElementById('submitted-fails');
-        this.HTMLMaxFails = document.getElementById('max-fails');
-        this.HTMLItemsToComplete = document.getElementById('items-to-complete');
+        // this.HTMLSubmittedFails = document.getElementById('submitted-fails');
+        // this.HTMLMaxFails = document.getElementById('max-fails');
+        // this.HTMLItemsToComplete = document.getElementById('items-to-complete');
         this.HTMLLevel = document.getElementById('level');
         this.level = 0;
         this.levelsArray = ['December', 'January', 'February', 'March', 'April', 'May', 'June']
@@ -28,8 +28,14 @@ class Game {
         this.graduatedScreen = document.getElementById('graduated');
         this.levelCompletedScreen = document.getElementById('level-completed');
         this.countDown = document.getElementById('count-down');
+        this.monthComing = document.getElementById('month-coming');
         this.timer = undefined;
-        this.counter = 4;
+        this.counter = 3;
+        this.okCountDown = true;
+        this.scoreLabKata = document.getElementById('score-lab-kata');
+        this.scoreLabKataFail = document.getElementById('score-lab-kata-fail');
+        this.labsKatasToComplete = 10;
+        this.maxFails = 2;
     }
 
     _assignControlsToKeys() {
@@ -197,24 +203,12 @@ class Game {
         setTimeout(this._assignControlsToKeys.bind(this), DRUNK_TIME);
     }
 
-    _updateSubmittedItems() {
-        this.HTMLSubmittedItems.innerText = this.submittedItems;
-    }
-
-    _updateSubmittedFails() {
-        this.HTMLSubmittedFails.innerText = this.submittedFails;
-    }
+    // _updateSubmittedFails() {
+    //     this.HTMLSubmittedFails.innerText = this.submittedFails;
+    // }
 
     _updateLevel() {
         this.HTMLLevel.innerText = this.levelsArray[++this.level];
-    }
-
-    _updateItemsToComplete() {
-        this.HTMLItemsToComplete.innerText = parseInt(this.HTMLItemsToComplete.innerText) + 5;
-    }
-
-    _updateMaxFails() {
-        this.HTMLMaxFails.innerText = parseInt(this.HTMLItemsToComplete.innerText) * 0.2;
     }
 
     _ironhackerWon() {
@@ -226,40 +220,83 @@ class Game {
     }
 
     _countDown() {
-        if (this.timer % 2 === 0) {
+        let counterToShow = this.counter;
+        // if (this.timer % 2 === 0) {
+        if (this.okCountDown) {
+            // this.counter--;
+            // this.countDown.style.fontSize = '100px';
             this.countDown.style.fontSize = '200px';
         }
         else {
-            this.counter--;
-            this.countDown.style.fontSize = '100px';
+            if (this.counter === 0) {
+                --this.counter;
+                this.levelCompletedScreen.removeAttribute('class');
+                this.levelCompletedScreen.setAttribute('class', 'disabled');
+            }
+            else {
+                // this.counter--;
+                // this.countDown.style.fontSize = '200px';
+                this.countDown.innerText = '';
+                this.countDown.style.fontSize = '100px';
+
+                if (this.counter > 1) {
+                    this.counter--;
+                    this.countDown.innerText = --counterToShow;
+                }
+                else {
+                    this.countDown.innerText = 'GO!';
+                    --this.counter;
+                }
+            }
         }
 
-        this.countDown.innerText = this.counter;
+        // this.okCountDown = !this.okCountDown;
+        // this.countDown.innerText = this.counter;
 
         if (this.counter < 0)
         {
-            this.countDown.innerText = 'GO!';
+            // this.countDown.style.fontSize = '200px';
+            // this.countDown.innerText = 'GO!';
             clearTimeout(this.timer);
             this.timer = undefined;
+            this.counter = 3;
+            this.countDown.style.fontSize = '100px';
+            this.countDown.innerText = this.counter;
+            this._clearScore();
+            this._clearFails();
+            this.start();
+            // this.levelCompletedScreen.removeAttribute('class');
+            // this.levelCompletedScreen.setAttribute('class', 'disabled');
+            // this.counter = 3;
         }
         else
         {
             this.timer = setTimeout(this._countDown.bind(this), 500);
         }
+
+        this.okCountDown = !this.okCountDown;
     }
 
     _goToNextLevel() {
         this._stop();
+        this.monthComing.innerText = this.levelsArray[this.level + 1];
         this.levelCompletedScreen.removeAttribute('class');
         this.levelCompletedScreen.setAttribute('class', 'flex');
-        this._startCountDownLevel();
+        // this.levelCompletedScreen.removeAttribute('class');
+        // this.levelCompletedScreen.setAttribute('class', 'disabled');
         this._updateLevel();
         this.submittedItems = 0;
-        this._updateSubmittedItems();
+        // this._clearScore();
+        // this._updateSubmittedItems();
         this.submittedFails = 0;
-        this._updateSubmittedFails();
+        // this._updateSubmittedFails();
         this.itemFallingSpeed += 0.2;
         this.itemsFallingFrequency -= 10;
+        this.arrayItemsFalling = [];
+        this.ironhacker.x = (this.width - this.ironhacker.width) / 2;
+        this.ironhacker.y = (this.height - this.ironhacker.height);
+        this._startCountDownLevel();
+        // this.start();
     }
 
     _updateItemsFalling() {
@@ -300,14 +337,35 @@ class Game {
 
         if (arrayCollides[0] && arrayCollides[1] === 0) {
             // Show warning.
+            this._fillFails();
             this.submittedFails++;
-            this._updateSubmittedFails();
+            // this._updateSubmittedFails();
 
-            if (this.submittedFails > this.HTMLMaxFails.innerText) {
+            if (this.submittedFails > this.maxFails) {
                 this.gameOn = false;
                 this.gameOver();
                 this._stop();
             } 
+        }
+    }
+
+    _fillScore() {
+        this.scoreLabKata.children[this.submittedItems].style.backgroundColor = 'green'; 
+    }
+
+    _fillFails() {
+        this.scoreLabKataFail.children[this.submittedFails].style.backgroundColor = 'red'; 
+    }
+
+    _clearScore() {
+        for (let i = 0; i < this.scoreLabKata.children.length; i++) {
+            this.scoreLabKata.children[i].style.backgroundColor = 'transparent'; 
+        }
+    }
+
+    _clearFails() {
+        for (let i = 0; i < this.scoreLabKataFail.children.length; i++) {
+            this.scoreLabKataFail.children[i].style.backgroundColor = 'transparent'; 
         }
     }
 
@@ -317,10 +375,12 @@ class Game {
         if (arrayCollides[0]) {
             switch (arrayCollides[1]) {
                 case 0:
+                    // this.submittedItems++;
+                    // this._updateSubmittedItems();
+                    this._fillScore();
                     this.submittedItems++;
-                    this._updateSubmittedItems();
-        
-                    if (this.submittedItems == this.HTMLItemsToComplete.innerText) {
+
+                    if (this.submittedItems == this.labsKatasToComplete) {
                         if (this._ironhackerWon()) {
                             this._graduated();
                         }

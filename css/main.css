@@ -32,15 +32,17 @@ html {
     background-color: #F4F6F8;
     margin-left: auto;
     font-size: 25px;
+    /* display: flex; */
+    flex-direction: column;
 }
 
-#submits-chart-1 {
+/* #submits-chart-1 {
     padding: 20px;
-}
+} */
 
-#submits-chart-2 {
+/* #submits-chart-2 {
     padding: 20px;
-}
+} */
 
 #start-container {
     width: 1500px;
@@ -175,4 +177,38 @@ button {
 
 #count-down {
     height: 201px;
+    font-size: 100px;
+}
+
+#score-lab-kata {
+    display: flex;
+    margin-left: 10px;
+}
+
+#score-lab-kata-fail {
+    display: flex;
+    margin-left: 61px;
+}
+
+.cell-score-lab-kata {
+    height: 40px;
+    width: 40px;
+    border: 1px solid black;
+}
+
+.cell-score-fail {
+    height: 40px;
+    width: 40px;
+    border: 1px solid black;
+}
+
+#labs-katas-submit {
+    display: flex;
+    align-items: center;
+}
+
+#labs-katas-fail {
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between */
 }

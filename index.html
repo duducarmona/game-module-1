@@ -12,15 +12,29 @@
 <body>
     <div id="container">
         <div id="submits-chart" class="disabled">
-            <div id="submits-chart-1">
-                <p>Level: <span id="level">December</span></p>
-                <p>LABs/Katas to submit: <span id="items-to-complete">1</span></p>
-                <p>Allowed LABs/Katas failed: <span id="max-fails">2</span></p>
+            <p>Month: <span id="level">December</span></p>
+            <div id="labs-katas-submit">
+                <p>LABs/Katas submitted: </p>
+                <div id="score-lab-kata">
+                    <div class='cell-score-lab-kata'></div>
+                    <div class='cell-score-lab-kata'></div>
+                    <div class='cell-score-lab-kata'></div>
+                    <div class='cell-score-lab-kata'></div>
+                    <div class='cell-score-lab-kata'></div>
+                    <div class='cell-score-lab-kata'></div>
+                    <div class='cell-score-lab-kata'></div>
+                    <div class='cell-score-lab-kata'></div>
+                    <div class='cell-score-lab-kata'></div>
+                    <div class='cell-score-lab-kata'></div>
+                </div>
             </div>
-            <div id="submits-chart-2">
-                <p id="p-hide">_</p>
-                <p>LABs/Katas submitted: <span id="submitted-items">0</span></p>
-                <p>LABs/katas failed: <span id="submitted-fails">0</span></p>
+            <div id="labs-katas-fail">
+                <p>LABs/Katas failed: </p>
+                <div id="score-lab-kata-fail">
+                    <div class='cell-score-fail'></div>
+                    <div class='cell-score-fail'></div>
+                    <div class='cell-score-fail'></div>
+                </div>
             </div>
         </div>
         <canvas id="ironhack" class="disabled" width="1500" height="600"></canvas>
@@ -42,7 +56,7 @@
         </div>
         <div id="level-completed" class="disabled">
             <p id="good-job">Good job! One month less to graduate!</p>
-            <p id="month-coming"><span>January</span> is coming in...</p>
+            <p><span id="month-coming">December</span> is coming in...</p>
             <p id="count-down">3</p>
         </div>
     </div>
