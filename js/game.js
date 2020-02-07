@@ -7,11 +7,7 @@ class Game {
         this.height = options.height;
         this.itemFalling = options.itemFalling;
         this.submittedItems = 0;
-        // this.HTMLSubmittedItems = document.getElementById('submitted-items');
         this.submittedFails = 0;
-        // this.HTMLSubmittedFails = document.getElementById('submitted-fails');
-        // this.HTMLMaxFails = document.getElementById('max-fails');
-        // this.HTMLItemsToComplete = document.getElementById('items-to-complete');
         this.HTMLLevel = document.getElementById('level');
         this.level = 0;
         this.levelsArray = ['December', 'January', 'February', 'March', 'April', 'May', 'June']
@@ -203,10 +199,6 @@ class Game {
         setTimeout(this._assignControlsToKeys.bind(this), DRUNK_TIME);
     }
 
-    // _updateSubmittedFails() {
-    //     this.HTMLSubmittedFails.innerText = this.submittedFails;
-    // }
-
     _updateLevel() {
         this.HTMLLevel.innerText = this.levelsArray[++this.level];
     }
@@ -221,10 +213,8 @@ class Game {
 
     _countDown() {
         let counterToShow = this.counter;
-        // if (this.timer % 2 === 0) {
+
         if (this.okCountDown) {
-            // this.counter--;
-            // this.countDown.style.fontSize = '100px';
             this.countDown.style.fontSize = '200px';
         }
         else {
@@ -234,8 +224,6 @@ class Game {
                 this.levelCompletedScreen.setAttribute('class', 'disabled');
             }
             else {
-                // this.counter--;
-                // this.countDown.style.fontSize = '200px';
                 this.countDown.innerText = '';
                 this.countDown.style.fontSize = '100px';
 
@@ -250,13 +238,8 @@ class Game {
             }
         }
 
-        // this.okCountDown = !this.okCountDown;
-        // this.countDown.innerText = this.counter;
-
         if (this.counter < 0)
         {
-            // this.countDown.style.fontSize = '200px';
-            // this.countDown.innerText = 'GO!';
             clearTimeout(this.timer);
             this.timer = undefined;
             this.counter = 3;
@@ -265,9 +248,6 @@ class Game {
             this._clearScore();
             this._clearFails();
             this.start();
-            // this.levelCompletedScreen.removeAttribute('class');
-            // this.levelCompletedScreen.setAttribute('class', 'disabled');
-            // this.counter = 3;
         }
         else
         {
@@ -282,21 +262,15 @@ class Game {
         this.monthComing.innerText = this.levelsArray[this.level + 1];
         this.levelCompletedScreen.removeAttribute('class');
         this.levelCompletedScreen.setAttribute('class', 'flex');
-        // this.levelCompletedScreen.removeAttribute('class');
-        // this.levelCompletedScreen.setAttribute('class', 'disabled');
         this._updateLevel();
         this.submittedItems = 0;
-        // this._clearScore();
-        // this._updateSubmittedItems();
         this.submittedFails = 0;
-        // this._updateSubmittedFails();
         this.itemFallingSpeed += 0.2;
         this.itemsFallingFrequency -= 10;
         this.arrayItemsFalling = [];
         this.ironhacker.x = (this.width - this.ironhacker.width) / 2;
         this.ironhacker.y = (this.height - this.ironhacker.height);
         this._startCountDownLevel();
-        // this.start();
     }
 
     _updateItemsFalling() {
@@ -339,7 +313,6 @@ class Game {
             // Show warning.
             this._fillFails();
             this.submittedFails++;
-            // this._updateSubmittedFails();
 
             if (this.submittedFails > this.maxFails) {
                 this.gameOn = false;
@@ -350,7 +323,7 @@ class Game {
     }
 
     _fillScore() {
-        this.scoreLabKata.children[this.submittedItems].style.backgroundColor = 'green'; 
+        this.scoreLabKata.children[this.submittedItems].style.backgroundColor = '#2B97BF'; 
     }
 
     _fillFails() {
@@ -375,8 +348,6 @@ class Game {
         if (arrayCollides[0]) {
             switch (arrayCollides[1]) {
                 case 0:
-                    // this.submittedItems++;
-                    // this._updateSubmittedItems();
                     this._fillScore();
                     this.submittedItems++;
 

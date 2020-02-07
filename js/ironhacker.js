@@ -36,12 +36,10 @@ class Ironhacker {
     moveLeft() {
         this.speedX = 0;
         this.speedX -= this.speed;
-        // this.x -= this.speed;
     }
 
     moveRight() {
         this.speedX = 0;
         this.speedX += this.speed;
-        // this.x += this.speed;
     }
 }

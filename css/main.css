@@ -3,6 +3,10 @@ html {
     font-family: 'Roboto', sans-serif;
 }
 
+p {
+    margin: 0;
+}
+
 #container {
     margin: 0 auto;
     width: 1500px;
@@ -11,12 +15,13 @@ html {
 
 #ironhack {
     margin: 0 auto;
-    border: 1px solid black;
+    border: 5px solid white;
     background-image: url('../images/classroom_ironhack.png');
     background-size: 1500px 600px, cover;
     background-repeat: no-repeat;
     position: absolute;
-    z-index: -1
+    z-index: -1;
+    border-radius: 10px;
 }
 
 .disabled {
@@ -28,21 +33,25 @@ html {
 }
 
 #submits-chart {
-    width: 690px;
-    background-color: #F4F6F8;
+    width: 700px;
+    background-color:#9CB5CE;
     margin-left: auto;
-    font-size: 25px;
+    font-size: 30px;
     /* display: flex; */
     flex-direction: column;
+    justify-content: flex-start;
+    font-family: 'VT323', monospace;
+    padding: 10px;
+    color: white;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 2px solid white;
+    border-radius: 10px;
 }
 
-/* #submits-chart-1 {
-    padding: 20px;
-} */
-
-/* #submits-chart-2 {
-    padding: 20px;
-} */
+#submits-chart > p {
+    height: 40px;
+}
 
 #start-container {
     width: 1500px;
@@ -67,6 +76,7 @@ html {
     text-align: center;
     justify-content: center;
     align-items: center;
+    border-radius: 10px;
 }
 
 #graduated {
@@ -140,7 +150,6 @@ button {
     box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
                 inset -2px -2px 3px rgba(0, 0, 0, .6);
     margin-top: 40px;
-    /* background-color: crimson; */
 }
 
 #try-again-button {
@@ -182,29 +191,35 @@ button {
 
 #score-lab-kata {
     display: flex;
-    margin-left: 10px;
 }
 
 #score-lab-kata-fail {
     display: flex;
-    margin-left: 61px;
 }
 
 .cell-score-lab-kata {
     height: 40px;
     width: 40px;
-    border: 1px solid black;
+    border: 2px solid white;
+    border-radius: 10px;
 }
 
 .cell-score-fail {
     height: 40px;
     width: 40px;
-    border: 1px solid black;
+    border: 2px solid white;
+    border-radius: 10px;
 }
 
 #labs-katas-submit {
     display: flex;
     align-items: center;
+    margin: 0;
+}
+
+#labs-katas-fail > p,
+#labs-katas-submit > p {
+    width: 260px;
 }
 
 #labs-katas-fail {
@@ -212,3 +227,11 @@ button {
     align-items: center;
     /* justify-content: space-between */
 }
+
+/* #title_on_canvas {
+    font-size: 25px;
+    color: white;
+    font-family: 'VT323', monospace;
+    display: inline;
+    background-color: chartreuse;
+} */

@@ -5,8 +5,6 @@ class ItemFalling {
         this.x = 0;
         this.y = 0;
         this.ctx = ctx;
-        // this.frequency = 100;
-        // this.frequency = frequency;
         this.direction = 0;     // Right = 0, Left = 1
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
@@ -16,15 +14,14 @@ class ItemFalling {
     }
 
     _newPos() {
-        // this.y++;
         this.y += this.speed;
 
         if (this.direction === 0) {
-            // this.x++;   // Go to the right
+            // Go to the right
             this.x += this.speed;
         }
         else {
-            // this.x--;   // Go to the left
+            // Go to the left
             this.x -= this.speed;
         }
 
