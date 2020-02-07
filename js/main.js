@@ -43,7 +43,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         submitsChart.removeAttribute('class');
         submitsChart.setAttribute('class', 'flex');
         startContainer.setAttribute('class', 'disabled');
-        body.style.backgroundColor = '#46CDFA'
+        // body.style.backgroundColor = '#46CDFA';
+        body.style.backgroundColor = '#207AB2';
 
         game.start();
     }

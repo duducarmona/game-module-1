@@ -10,13 +10,15 @@ class Game {
         this.submittedFails = 0;
         this.HTMLLevel = document.getElementById('level');
         this.level = 0;
-        this.levelsArray = ['December', 'January', 'February', 'March', 'April', 'May', 'June']
+        this.levelsArray = ['DECEMBER', 'JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE'];
         this.arrayItemsFalling = [];
         this.itemFallingSpeed = 1;
         this.itemsFallingFrequency = 100;
         this.gameOver = callback;
         this.arrayBeers = [];
-        this.beersFrecuency = 1000;
+        this.beersFrecuency = 500;
+        this.coffeeFrecuency = 600;
+        this.zzzFrecuency = 700;
         this.pause = false;
         this.fired = false;
         this.pauseScreen = document.getElementById('pause-screen');
@@ -30,23 +32,85 @@ class Game {
         this.okCountDown = true;
         this.scoreLabKata = document.getElementById('score-lab-kata');
         this.scoreLabKataFail = document.getElementById('score-lab-kata-fail');
-        this.labsKatasToComplete = 1;
+        this.labsKatasToComplete = 10;
         this.maxFails = 2;
         this.audioGame = new Audio('./audio/chemical_brothers_go.mp3');
+        this.ironhackerImageRight = './images/ironhacker_right.png';
+        this.ironhackerImageLeft = './images/ironhacker_left.png';
+        this.ironhackerDrunkImageRight = './images/ironhacker_drunk_right.png';
+        this.ironhackerDrunkImageLeft = './images/ironhacker_drunk_left.png';
+        this.ironhackerCoffeeImageRight = './images/ironhacker_coffee_right.png';
+        this.ironhackerCoffeeImageLeft = './images/ironhacker_coffee_left.png';
+        this.ironhackerZZZImageRight = './images/ironhacker_zzz_right.png';
+        this.ironhackerZZZImageLeft = './images/ironhacker_zzz_left.png';
+        this.incrementIronhackerSpeed = 5;
+        this.ironhackerOriginalSpeed = this.ironhacker.speed;
+        this.stateInterval = undefined;
     }
 
     _assignControlsToKeys() {
-        this.ironhacker.image = './images/ironhacker_right.png';
+        let ironhackerImageRight = this.ironhackerImageRight;
+        let ironhackerImageLeft = this.ironhackerImageLeft;
+
+        this.ironhacker.image = ironhackerImageRight;
+
+        // switch (this.ironhacker.state) {
+        //     case 0:
+        //         ironhackerImageRight = this.ironhackerImageRight;
+        //         ironhackerImageLeft = this.ironhackerImageLeft;
+
+        //         break;
+        //     case 1:
+        //         ironhackerImageRight = this.ironhackerDrunkImageRight;
+        //         ironhackerImageLeft = this.ironhackerDrunkImageLeft;
+        //         break;
+        //     case 2:
+        //         ironhackerImageRight = this.ironhackerCoffeeImageRight;
+        //         ironhackerImageLeft = this.ironhackerCoffeeImageLeft;
+        //         break;
+        //     case 3:
+        //         ironhackerImageRight = this.ironhackerZZZImageRight;
+        //         ironhackerImageLeft = this.ironhackerZZZImageLeft;
+        //         break;
+        //     default:
+        //         break;
+        // }
 
         document.addEventListener('keydown', e => {
+            console.log(this.ironhacker.state);
+
+            switch (this.ironhacker.state) {
+                case 0:
+                    ironhackerImageRight = this.ironhackerImageRight;
+                    ironhackerImageLeft = this.ironhackerImageLeft;
+    
+                    break;
+                case 1:
+                    ironhackerImageRight = this.ironhackerDrunkImageRight;
+                    ironhackerImageLeft = this.ironhackerDrunkImageLeft;
+                    break;
+                case 2:
+                    ironhackerImageRight = this.ironhackerCoffeeImageRight;
+                    ironhackerImageLeft = this.ironhackerCoffeeImageLeft;
+                    break;
+                case 3:
+                    ironhackerImageRight = this.ironhackerZZZImageRight;
+                    ironhackerImageLeft = this.ironhackerZZZImageLeft;
+                    break;
+                default:
+                    break;
+            }
+
             if (this.gameOn) {
                 switch (e.keyCode) {
                     case 37:    // arrow left
-                        this.ironhacker.image = './images/ironhacker_left.png';
+                        // this.ironhacker.image = './images/ironhacker_left.png';
+                        this.ironhacker.image = ironhackerImageLeft;
                         this.ironhacker.moveLeft();
                         break;
                     case 39:    // arrow right
-                        this.ironhacker.image = './images/ironhacker_right.png';
+                        // this.ironhacker.image = './images/ironhacker_right.png';
+                        this.ironhacker.image = ironhackerImageRight;
                         this.ironhacker.moveRight();
                         break;
                     case 80:    // pause
@@ -197,8 +261,13 @@ class Game {
     _reverseIronhackerMovement() {
         const DRUNK_TIME = 10000;
 
+        this.ironhacker.state = 1;
         this._reverseAssignControlsToKeys();
-        setTimeout(this._assignControlsToKeys.bind(this), DRUNK_TIME);
+        // setTimeout(this._assignControlsToKeys.bind(this), DRUNK_TIME);
+        this.stateInterval = setTimeout(() => {
+            this._assignControlsToKeys();
+            this.ironhacker.state = 0;
+        }, DRUNK_TIME);
     }
 
     _updateLevel() {
@@ -247,6 +316,7 @@ class Game {
             this.counter = 3;
             this.countDown.style.fontSize = '100px';
             this.countDown.innerText = this.counter;
+            this._updateLevel();
             this._clearScore();
             this._clearFails();
             this.start();
@@ -264,15 +334,20 @@ class Game {
         this.monthComing.innerText = this.levelsArray[this.level + 1];
         this.levelCompletedScreen.removeAttribute('class');
         this.levelCompletedScreen.setAttribute('class', 'flex');
-        this._updateLevel();
+        // this._updateLevel();
         this.submittedItems = 0;
         this.submittedFails = 0;
-        this.itemFallingSpeed += 0.2;
-        this.itemsFallingFrequency -= 10;
+        // this.itemFallingSpeed += 0.2;
+        // this.itemsFallingFrequency -= 10;
         this.arrayItemsFalling = [];
         this.ironhacker.x = (this.width - this.ironhacker.width) / 2;
         this.ironhacker.y = (this.height - this.ironhacker.height);
         this._startCountDownLevel();
+        
+        if (this.stateInterval) {
+            clearTimeout(this.stateInterval);
+            this.ironhacker.state = 0;
+        }
     }
 
     _updateItemsFalling() {
@@ -298,6 +373,41 @@ class Game {
                 beer.type = 1;
                 this.arrayItemsFalling.push(beer);
             }
+        }
+    }
+
+    _generateZzz() {
+        if (this.interval % this.zzzFrecuency === 0) {
+            const MAX_ZZZ = 20;
+            const ZZZ_SPEED = 1.5;
+            const distanceBetweenZzz = 300;
+
+            for (let i = 0; i < MAX_ZZZ; i++) {
+                const zzz = new ItemFalling(this.ctx, this.width, this.height, ZZZ_SPEED);
+                const x = (i * distanceBetweenZzz) % this.width;
+                const direction = Math.floor(Math.random() * 2);
+
+                zzz.x = x;
+                zzz.direction = direction;
+                zzz.image = './images/zzz.png';
+                zzz.type = 3;
+                this.arrayItemsFalling.push(zzz);
+            }
+        }
+    }
+
+    _generateCoffee() {
+        if (this.interval % this.coffeeFrecuency === 0) {
+            const coffee = new ItemFalling(this.ctx, this.width, this.height, this.itemFallingSpeed);
+            const x = Math.floor(Math.random() * this.width - coffee.width);
+            const direction = Math.floor(Math.random() * 2);
+
+            coffee.x = x;
+            coffee.direction = direction;
+            coffee.type = 2;
+            coffee.image = './images/coffee.png'
+
+            this.arrayItemsFalling.push(coffee);
         }
     }
 
@@ -377,12 +487,77 @@ class Game {
                     const audioBurp = new Audio('./audio/burp.mp3');
                     
                     audioBurp.play();
+
+                    if (this.stateInterval) {
+                        clearTimeout(this.stateInterval);
+                        this._setNormal();
+                    }
+
                     this._reverseIronhackerMovement();
                     break;
+                case 2:
+                    const audioCoffee = new Audio('./audio/yee_haw.mp3');
+
+                    audioCoffee.play();
+
+                    if (this.stateInterval) {
+                        clearTimeout(this.stateInterval);
+                        this._setNormal();
+                    }
+
+                    this._acceleratesIronhacker();
+                    break;
+                case 3:
+                    const audioZzz = new Audio('/audio/snore.wav');
+
+                    audioZzz.play();
+
+                    if (this.stateInterval) {
+                        clearTimeout(this.stateInterval);
+                        this._setNormal();
+                    }
+
+                    this._slowDownIronhacker();
                 default:
                     break;
             }
         }
+    }
+
+    _setNormal() {
+        this.ironhacker.state = 0;
+        this.ironhacker.speed = this.ironhackerOriginalSpeed;
+        this._assignControlsToKeys();
+    }
+
+    _acceleratesIronhacker() {
+        const COFFEE_TIME = 10000;
+
+        // if (this.stateInterval) {
+        //     clearTimeout(this.stateInterval);
+        // }
+
+        this.ironhacker.image = '/images/ironhacker_coffee_right.png';
+        this.ironhacker.speed += this.incrementIronhackerSpeed;
+        console.log('speed = ' + this.ironhacker.speed);
+        this.ironhacker.state = 2;
+
+        // setTimeout(this._setNormal().bind(this), COFFEE_TIME);
+        // this.stateInterval = setTimeout(this._setNormal.bind(this), COFFEE_TIME);
+        this.stateInterval = setTimeout(() => {}, COFFEE_TIME);
+        console.log('speed = ' + this.ironhacker.speed);
+    }
+
+    _slowDownIronhacker() {
+        const ZZZ_TIME = 10000;
+
+        this.ironhacker.image = '/images/ironhacker_zzz_right.png';
+        this.ironhacker.speed -= this.incrementIronhackerSpeed;
+        this.ironhacker.state = 3;
+
+        // setTimeout(this._setNormal().bind(this), COFFEE_TIME);
+        // this.stateInterval = setTimeout(this._setNormal.bind(this), COFFEE_TIME);
+        this.stateInterval = setTimeout(() => {}, ZZZ_TIME);
     }
 
     _checkCollisions() {
@@ -395,6 +570,8 @@ class Game {
         this.ironhacker.update();
         this._generateItemsFalling();
         this._generateIronbeers();
+        this._generateCoffee();
+        this._generateZzz();
         this._updateItemsFalling();
         this._checkCollisions();
 

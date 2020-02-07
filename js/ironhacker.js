@@ -10,6 +10,7 @@ class Ironhacker {
         this.speedX = 0;
         this.speed = 15;
         this.image = './images/ironhacker_right.png';
+        this.state = 0; // 0: Normal, 1: Drunk, 2: Coffee, 3: Zzz
     }
 
     _newPos() {

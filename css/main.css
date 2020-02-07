@@ -34,7 +34,8 @@ p {
 
 #submits-chart {
     width: 700px;
-    background-color:#9CB5CE;
+    /* background-color:#9CB5CE; */
+    background-color: #46CDFA;
     margin-left: auto;
     font-size: 30px;
     /* display: flex; */
@@ -228,10 +229,22 @@ button {
     /* justify-content: space-between */
 }
 
-/* #title_on_canvas {
-    font-size: 25px;
+#title_on_canvas {
+    font-size: 55px;
     color: white;
     font-family: 'VT323', monospace;
-    display: inline;
-    background-color: chartreuse;
-} */
+    font-weight: bold;
+    /* display: inline; */
+    /* background-color: chartreuse; */
+    margin-left: 50px;
+}
+
+#dom {
+    display: flex;
+    align-items: center;
+}
+
+#level {
+    /* font-size: 40px; */
+    font-weight: bold;
+}
