@@ -31,7 +31,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
     },
     gameOver);
 
+    const audioStart = new Audio('./audio/stranger_things.mp3');
+
+    audioStart.play();
+
     function start() {
+        audioStart.pause();
+        audioStart.currentTime = 0;
+
         canvas.removeAttribute('class');
         submitsChart.removeAttribute('class');
         submitsChart.setAttribute('class', 'flex');
@@ -43,7 +50,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     function gameOver() {
         let gameOver = document.getElementById('game-over');
+        const audioGameOver = new Audio('/audio/game_over.mp3');
 
+        audioGameOver.play();
         gameOver.removeAttribute('class');
         gameOver.setAttribute('class', 'flex');
     }

@@ -30,8 +30,9 @@ class Game {
         this.okCountDown = true;
         this.scoreLabKata = document.getElementById('score-lab-kata');
         this.scoreLabKataFail = document.getElementById('score-lab-kata-fail');
-        this.labsKatasToComplete = 10;
+        this.labsKatasToComplete = 1;
         this.maxFails = 2;
+        this.audioGame = new Audio('./audio/chemical_brothers_go.mp3');
     }
 
     _assignControlsToKeys() {
@@ -71,6 +72,7 @@ class Game {
             this.pause = false;
         }
         else {
+            this.audioGame.pause();
             this._stop();
             this.pauseScreen.removeAttribute('class');
             this.pauseScreen.setAttribute('class', 'flex');
@@ -300,6 +302,9 @@ class Game {
     }
 
     _graduated() {
+        const audioWin = new Audio('/audio/applause.mp3');
+
+        audioWin.play();
         this._stop();
         this.gameOn = false;
         this.graduatedScreen.removeAttribute('class');
@@ -310,12 +315,16 @@ class Game {
         const arrayCollides = this._collidesWithGround();
 
         if (arrayCollides[0] && arrayCollides[1] === 0) {
-            // Show warning.
+            const audioLoseTask = new Audio('./audio/task_lose.wav');
+                    
+            audioLoseTask.play();
+            
             this._fillFails();
             this.submittedFails++;
 
             if (this.submittedFails > this.maxFails) {
                 this.gameOn = false;
+                this.audioGame.pause();
                 this.gameOver();
                 this._stop();
             } 
@@ -348,6 +357,10 @@ class Game {
         if (arrayCollides[0]) {
             switch (arrayCollides[1]) {
                 case 0:
+                    const audioCaught = new Audio('./audio/task_caught.wav');
+                    
+                    audioCaught.play();
+
                     this._fillScore();
                     this.submittedItems++;
 
@@ -361,6 +374,9 @@ class Game {
                     }
                     break;
                 case 1:
+                    const audioBurp = new Audio('./audio/burp.mp3');
+                    
+                    audioBurp.play();
                     this._reverseIronhackerMovement();
                     break;
                 default:
@@ -388,6 +404,8 @@ class Game {
     }
 
     start() {
+        this.audioGame.play();
+
         this.gameOn = true;
         this._assignControlsToKeys();
         this.interval = window.requestAnimationFrame(this._update.bind(this));
