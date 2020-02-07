@@ -34,11 +34,9 @@ p {
 
 #submits-chart {
     width: 700px;
-    /* background-color:#9CB5CE; */
     background-color: #46CDFA;
     margin-left: auto;
     font-size: 30px;
-    /* display: flex; */
     flex-direction: column;
     justify-content: flex-start;
     font-family: 'VT323', monospace;
@@ -48,6 +46,7 @@ p {
     margin-bottom: 20px;
     border: 2px solid white;
     border-radius: 10px;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 #submits-chart > p {
@@ -69,7 +68,7 @@ p {
     margin: 0 auto;
     position: absolute;
     z-index: 2;
-    background-color: rgba(49, 49, 49, 0.322);
+    background-color: rgba(49, 49, 49, 0.6);
     font-family: 'VT323', monospace;
     font-size: 100px;
     font-weight: bolder;
@@ -78,6 +77,10 @@ p {
     justify-content: center;
     align-items: center;
     border-radius: 10px;
+    color: #46CDFA;
+    border: 5px solid white;
+    border-radius: 10px;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 #graduated {
@@ -94,7 +97,9 @@ p {
     text-align: center;
     justify-content: center;
     align-items: center;
-    color: crimson;;
+    color: #46CDFA;
+    border: 5px solid white;
+    border-radius: 10px;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
@@ -104,15 +109,17 @@ p {
     margin: 0 auto;
     position: absolute;
     z-index: 4;
-    background-color: rgba(49, 49, 49, 0.322);
+    background-color: rgba(49, 49, 49, 0.6);
     font-family: 'VT323', monospace;
-    font-size: 100px;
+    font-size: 75px;
     font-weight: bolder;
     flex-direction: column;
     text-align: center;
     justify-content: center;
     align-items: center;
-    color: crimson;;
+    color: #46CDFA;
+    border: 5px solid white;
+    border-radius: 10px;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
@@ -175,7 +182,7 @@ button {
     width: 1500px;
     height: 600px;
     position: absolute;
-    background-color: rgba(49, 49, 49, 0.322);
+    background-color: rgba(49, 49, 49, 0.6);
     z-index: 1;
     font-family: 'VT323', monospace;
     font-size: 100px;
@@ -183,6 +190,10 @@ button {
     text-align: center;
     justify-content: center;
     align-items: center;
+    color: #46CDFA;
+    border: 5px solid white;
+    border-radius: 10px;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 #count-down {
@@ -226,17 +237,15 @@ button {
 #labs-katas-fail {
     display: flex;
     align-items: center;
-    /* justify-content: space-between */
 }
 
-#title_on_canvas {
+#title-on-canvas {
     font-size: 55px;
     color: white;
     font-family: 'VT323', monospace;
     font-weight: bold;
-    /* display: inline; */
-    /* background-color: chartreuse; */
     margin-left: 50px;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 #dom {
@@ -245,6 +254,5 @@ button {
 }
 
 #level {
-    /* font-size: 40px; */
     font-weight: bold;
 }

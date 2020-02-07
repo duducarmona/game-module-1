@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const canvas = document.getElementById('ironhack');
     const startContainer = document.getElementById('start-container');
     const submitsChart = document.getElementById('submits-chart');
+    const titleOnCanvas = document.getElementById('title-on-canvas');
     const body = document.getElementById('body');
 
     ctx = canvas.getContext('2d');
@@ -42,8 +43,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         canvas.removeAttribute('class');
         submitsChart.removeAttribute('class');
         submitsChart.setAttribute('class', 'flex');
+        titleOnCanvas.removeAttribute('class');
         startContainer.setAttribute('class', 'disabled');
-        // body.style.backgroundColor = '#46CDFA';
         body.style.backgroundColor = '#207AB2';
 
         game.start();

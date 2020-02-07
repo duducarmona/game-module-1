@@ -15,10 +15,12 @@ class Game {
         this.itemFallingSpeed = 1;
         this.itemsFallingFrequency = 100;
         this.gameOver = callback;
-        this.arrayBeers = [];
-        this.beersFrecuency = 500;
-        this.coffeeFrecuency = 600;
-        this.zzzFrecuency = 700;
+        // this.beersFrecuency = 500;
+        // this.coffeeFrecuency = 750;
+        // this.zzzFrecuency = 1000;
+        this.beersFrecuency = 1;
+        this.coffeeFrecuency = 1;
+        this.zzzFrecuency = 1;
         this.pause = false;
         this.fired = false;
         this.pauseScreen = document.getElementById('pause-screen');
@@ -46,6 +48,7 @@ class Game {
         this.incrementIronhackerSpeed = 5;
         this.ironhackerOriginalSpeed = this.ironhacker.speed;
         this.stateInterval = undefined;
+        this.counterItems = 0;
     }
 
     _assignControlsToKeys() {
@@ -54,31 +57,7 @@ class Game {
 
         this.ironhacker.image = ironhackerImageRight;
 
-        // switch (this.ironhacker.state) {
-        //     case 0:
-        //         ironhackerImageRight = this.ironhackerImageRight;
-        //         ironhackerImageLeft = this.ironhackerImageLeft;
-
-        //         break;
-        //     case 1:
-        //         ironhackerImageRight = this.ironhackerDrunkImageRight;
-        //         ironhackerImageLeft = this.ironhackerDrunkImageLeft;
-        //         break;
-        //     case 2:
-        //         ironhackerImageRight = this.ironhackerCoffeeImageRight;
-        //         ironhackerImageLeft = this.ironhackerCoffeeImageLeft;
-        //         break;
-        //     case 3:
-        //         ironhackerImageRight = this.ironhackerZZZImageRight;
-        //         ironhackerImageLeft = this.ironhackerZZZImageLeft;
-        //         break;
-        //     default:
-        //         break;
-        // }
-
         document.addEventListener('keydown', e => {
-            console.log(this.ironhacker.state);
-
             switch (this.ironhacker.state) {
                 case 0:
                     ironhackerImageRight = this.ironhackerImageRight;
@@ -104,12 +83,10 @@ class Game {
             if (this.gameOn) {
                 switch (e.keyCode) {
                     case 37:    // arrow left
-                        // this.ironhacker.image = './images/ironhacker_left.png';
                         this.ironhacker.image = ironhackerImageLeft;
                         this.ironhacker.moveLeft();
                         break;
                     case 39:    // arrow right
-                        // this.ironhacker.image = './images/ironhacker_right.png';
                         this.ironhacker.image = ironhackerImageRight;
                         this.ironhacker.moveRight();
                         break;
@@ -263,7 +240,7 @@ class Game {
 
         this.ironhacker.state = 1;
         this._reverseAssignControlsToKeys();
-        // setTimeout(this._assignControlsToKeys.bind(this), DRUNK_TIME);
+
         this.stateInterval = setTimeout(() => {
             this._assignControlsToKeys();
             this.ironhacker.state = 0;
@@ -334,11 +311,10 @@ class Game {
         this.monthComing.innerText = this.levelsArray[this.level + 1];
         this.levelCompletedScreen.removeAttribute('class');
         this.levelCompletedScreen.setAttribute('class', 'flex');
-        // this._updateLevel();
         this.submittedItems = 0;
         this.submittedFails = 0;
-        // this.itemFallingSpeed += 0.2;
-        // this.itemsFallingFrequency -= 10;
+        this.itemFallingSpeed += 0.2;
+        this.itemsFallingFrequency -= 5;
         this.arrayItemsFalling = [];
         this.ironhacker.x = (this.width - this.ironhacker.width) / 2;
         this.ironhacker.y = (this.height - this.ironhacker.height);
@@ -358,13 +334,14 @@ class Game {
 
     _generateIronbeers() {
         if (this.interval % this.beersFrecuency === 0) {
-            const MAX_BEERS = 20;
+            const MAX_BEERS = 5;
             const BEER_SPEED = 2;
             const distanceBetweenBeers = 300;
 
             for (let i = 0; i < MAX_BEERS; i++) {
                 const beer = new ItemFalling(this.ctx, this.width, this.height, BEER_SPEED);
-                const x = (i * distanceBetweenBeers) % this.width;
+                // const x = (i * distanceBetweenBeers) % this.width;
+                const x = Math.floor(Math.random() * this.width - beer.width);
                 const direction = Math.floor(Math.random() * 2);
 
                 beer.x = x;
@@ -378,13 +355,14 @@ class Game {
 
     _generateZzz() {
         if (this.interval % this.zzzFrecuency === 0) {
-            const MAX_ZZZ = 20;
-            const ZZZ_SPEED = 1.5;
+            const MAX_ZZZ = 5;
+            const ZZZ_SPEED = 2;
             const distanceBetweenZzz = 300;
 
             for (let i = 0; i < MAX_ZZZ; i++) {
                 const zzz = new ItemFalling(this.ctx, this.width, this.height, ZZZ_SPEED);
-                const x = (i * distanceBetweenZzz) % this.width;
+                // const x = (i * distanceBetweenZzz) % this.width;
+                const x = Math.floor(Math.random() * this.width - zzz.width);
                 const direction = Math.floor(Math.random() * 2);
 
                 zzz.x = x;
@@ -527,25 +505,18 @@ class Game {
     _setNormal() {
         this.ironhacker.state = 0;
         this.ironhacker.speed = this.ironhackerOriginalSpeed;
+        console.log(this.ironhacker.speed);
         this._assignControlsToKeys();
     }
 
     _acceleratesIronhacker() {
         const COFFEE_TIME = 10000;
 
-        // if (this.stateInterval) {
-        //     clearTimeout(this.stateInterval);
-        // }
-
         this.ironhacker.image = '/images/ironhacker_coffee_right.png';
         this.ironhacker.speed += this.incrementIronhackerSpeed;
-        console.log('speed = ' + this.ironhacker.speed);
         this.ironhacker.state = 2;
 
-        // setTimeout(this._setNormal().bind(this), COFFEE_TIME);
-        // this.stateInterval = setTimeout(this._setNormal.bind(this), COFFEE_TIME);
         this.stateInterval = setTimeout(() => {}, COFFEE_TIME);
-        console.log('speed = ' + this.ironhacker.speed);
     }
 
     _slowDownIronhacker() {
@@ -555,8 +526,6 @@ class Game {
         this.ironhacker.speed -= this.incrementIronhackerSpeed;
         this.ironhacker.state = 3;
 
-        // setTimeout(this._setNormal().bind(this), COFFEE_TIME);
-        // this.stateInterval = setTimeout(this._setNormal.bind(this), COFFEE_TIME);
         this.stateInterval = setTimeout(() => {}, ZZZ_TIME);
     }
 
@@ -569,9 +538,23 @@ class Game {
         this._cleanScreen();
         this.ironhacker.update();
         this._generateItemsFalling();
-        this._generateIronbeers();
-        this._generateCoffee();
-        this._generateZzz();
+        if (this.interval % 500 === 0) {
+            if(this.counterItems === 0) {
+                this._generateIronbeers();
+                this.counterItems++;
+            }
+            else if (this.counterItems === 1) {
+                this._generateCoffee();
+                this.counterItems++;
+            }
+            else {
+                this._generateZzz();
+                this.counterItems = 0;
+            }
+        }
+        // this._generateIronbeers();
+        // this._generateCoffee();
+        // this._generateZzz();
         this._updateItemsFalling();
         this._checkCollisions();
 
